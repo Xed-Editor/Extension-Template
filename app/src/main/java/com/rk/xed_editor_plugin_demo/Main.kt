@@ -15,48 +15,7 @@ import com.rk.xededitor.ui.screens.settings.feature_toggles.Feature
 
 class Main : ExtensionAPI() {
     override fun onPluginLoaded() {
-        //add git setting screen
-        Hooks.Settings.screens["git"] = SettingsScreen(
-            label = "Git",
-            description = "Git client settings",
-            route = "git",
-            icon = {
-                Icon(imageVector = Icons.Default.Build,contentDescription = null)
-            },
-            content = {
-                PreferenceLayout(label = "Git") {
-                    PreferenceGroup {
-                        SettingsToggle(label = "Example", default = false, showSwitch = true)
-                        SettingsToggle(label = "Example", default = false, showSwitch = true)
-                        SettingsToggle(label = "Example", default = false, showSwitch = true)
-                        SettingsToggle(label = "Example", default = false, showSwitch = true)
-                    }
-                }
-            }
-        )
-
-        //add items in control panel
-        Hooks.ControlPanel.controlItems["pull"] = ControlItem(label = "Pull", description = "GitClient", hideControlPanelOnClick = true, sideEffect = {
-
-        })
-
-        Hooks.ControlPanel.controlItems["push"] = ControlItem(label = "Push", description = "GitClient", hideControlPanelOnClick = true, sideEffect = {
-
-        })
-
-        Hooks.ControlPanel.controlItems["commit"] = ControlItem(label = "Commit", description = "GitClient",  hideControlPanelOnClick = true, sideEffect = {
-
-        })
-
-        Hooks.ControlPanel.controlItems["commit + push"] = ControlItem(label = "Commit + Push", description = "GitClient",  hideControlPanelOnClick = true, sideEffect = {
-
-        })
-
-        Hooks.ControlPanel.controlItems["log"] = ControlItem(label = "Logs", description = "GitClient",  hideControlPanelOnClick = true, sideEffect = {
-
-        })
-
-
+   
     }
 
     override fun onAppCreated() {
