@@ -10,12 +10,14 @@ import com.rk.controlpanel.ControlItem
 import com.rk.extension.ExtensionAPI
 import com.rk.extension.Hooks
 import com.rk.extension.SettingsScreen
+import com.rk.xededitor.MainActivity.MainActivity
 import com.rk.xededitor.ui.components.SettingsToggle
 import com.rk.xededitor.ui.screens.settings.feature_toggles.Feature
 
 class Main : ExtensionAPI() {
     override fun onPluginLoaded() {
-   
+
+
     }
 
     override fun onAppCreated() {

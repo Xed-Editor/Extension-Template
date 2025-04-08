@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Xed-Editor-Plugin-Demo"
+rootProject.name = "GitClient"
 include(":app")
  
