@@ -43,9 +43,9 @@ dependencies {
     //very important
     compileOnly(files("libs/sdk.jar"))
 
-    implementation(libs.org.eclipse.jgit)
-
     //if a library is common in both your plugin and xed-editor then you should use compileOnly() instead of implementation()
+
+
     compileOnly(libs.appcompat)
     compileOnly(libs.material)
     compileOnly(libs.constraintlayout)
@@ -63,8 +63,6 @@ dependencies {
     compileOnly(libs.ui.graphics)
     compileOnly(libs.material3)
     compileOnly(libs.navigation.compose)
-    compileOnly(libs.terminal.view)
-    compileOnly(libs.terminal.emulator)
     compileOnly(libs.utilcode)
     compileOnly(libs.coil.compose)
     //compileOnly(libs.org.eclipse.jgit)
