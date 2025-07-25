@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rk.xed_editor_plugin_demo"
+    namespace = "com.rk.demo"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.rk.xed_editor_plugin_demo"
+        applicationId = "com.rk.demo"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -44,8 +44,6 @@ dependencies {
     compileOnly(files("libs/sdk.jar"))
 
     //if a library is common in both your plugin and xed-editor then you should use compileOnly() instead of implementation()
-
-
     compileOnly(libs.appcompat)
     compileOnly(libs.material)
     compileOnly(libs.constraintlayout)
@@ -65,13 +63,8 @@ dependencies {
     compileOnly(libs.navigation.compose)
     compileOnly(libs.utilcode)
     compileOnly(libs.coil.compose)
-    //compileOnly(libs.org.eclipse.jgit)
     compileOnly(libs.gson)
     compileOnly(libs.commons.net)
-    // compileOnly(libs.jcodings)
-    // compileOnly(libs.joni)
-    // compileOnly(libs.snakeyaml.engine)
-    //compileOnly(libs.jdt.annotation)
     compileOnly(libs.okhttp)
     compileOnly(libs.material.motion.compose.core)
     compileOnly(libs.nanohttpd)
