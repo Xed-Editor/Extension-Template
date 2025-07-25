@@ -68,13 +68,4 @@ dependencies {
     compileOnly(libs.okhttp)
     compileOnly(libs.material.motion.compose.core)
     compileOnly(libs.nanohttpd)
-    compileOnly(libs.photoview)
-    compileOnly(libs.glide)
-    compileOnly(libs.media3.exoplayer)
-    compileOnly(libs.media3.exoplayer.dash)
-    compileOnly(libs.media3.ui)
-    compileOnly(libs.browser)
-    compileOnly(libs.quickjs.android)
-    compileOnly(libs.anrwatchdog)
-    compileOnly(libs.word.wrap)
 }
