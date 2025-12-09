@@ -24,7 +24,7 @@ Before building, update the following in `manifest.json`:
 * `version` – version of your plugin
 
 >[!WARNING]
-If you rename the main class or move it to another package/folder, **you must update the `main` field in `manifest.json`**, or the plugin will not load.
+If you rename the main class or move it to another package/folder, **you must update the `mainClass` field in `manifest.json`**, or the plugin will not load.
 
 ---
 
