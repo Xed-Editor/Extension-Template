@@ -1,32 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.XedEditorPluginDemo"
-        tools:targetApi="31">
-
-        <!-- provide the absolute path of the class that extends ExtensionAPI -->
-        <meta-data android:name="mainClass" android:value="com.rk.demo.Main" />
-
-        <!-- minimum version code of xed-editor this plugin can be installed on  -->
-        <meta-data
-            android:name="minXedVersionCode"
-            android:value="55" />
-
-        <!-- version code of xed-editor that the sdk.jar is made from  -->
-        <meta-data
-            android:name="targetXedVersionCode"
-            android:value="55" />
-
-
-    </application>
-
+    <application></application>
 </manifest>

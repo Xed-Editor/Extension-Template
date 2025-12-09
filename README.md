@@ -1,43 +1,51 @@
-# Plugin Template for Xed-Editor
+# Xed-Editor Plugin Template
 
-This project serves as a template for creating plugins for **Xed-Editor (Karbon)**.
+This repository is a starting point for building plugins for **Xed-Editor (Karbon)**.
+It includes a ready-to-use template, build scripts, and a simple folder structure so you can focus on writing your plugin instead of setting up the environment.
 
-## Setup
+---
 
-Follow these steps to set up the repository and build your plugin:
+## 🚀 Getting Started
 
-### 1. Clone the Repository
-
-Start by cloning this repository and navigating into its directory:
+### 1. Clone the Template
 
 ```bash
 git clone https://github.com/Xed-Editor/pluginTemplate
 cd pluginTemplate
-mkdir -p sdk
 ```
 
-### 2. Download the SDK
+---
 
-1. Download the latest **`sdk.jar`** from the [GitHub actions](https://github.com/Xed-Editor/Xed-Editor-Sdk/actions).  
+### 2. Configure Your Plugin
 
-   **Note**: If certain APIs or Classes are not available in your plugin then just update the SDK jar. 
+Before building, update the following in `manifest.json`:
 
-2. Unzip it and Place the downloaded ** `sdk.jar`** file into the `app/libs` directory of the project
+* `name` – your plugin’s name
+* `version` – version of your plugin
+
+![WARNING]
+>If you rename the main class or move it to another package/folder, **you must update the `main` field in `manifest.json`**, or the plugin will not load.
+
+---
 
 ### 3. Build the Plugin
 
-Run the following command to build your plugin:
+To build the plugin in **debug mode**, run:
 
 ```bash
-bash gradlew assembleRelease
+sh compileDebug.sh
 ```
 
-### 4. Locate the Build Output
+(You can create your own release script later if needed.)
 
-After a successful build, your plugin will be available at:
+---
+
+### 4. Find the Output
+
+After a successful build, your plugin package will be created here:
 
 ```
-app/build/outputs/apk/release/app-release-unsigned.apk
+output/YourPluginName.zip
 ```
 
-there should be a file with .apk extension this is your final file. you can install this from the app
+This ZIP file is what you load into **Xed-Editor** as a plugin.

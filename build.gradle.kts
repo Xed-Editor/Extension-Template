@@ -6,3 +6,9 @@ plugins {
     alias(libs.plugins.kotlinParcelize) apply false
     alias(libs.plugins.compose.compiler) apply false
 }
+
+buildscript {
+    dependencies {
+        classpath(libs.gson)
+    }
+}
