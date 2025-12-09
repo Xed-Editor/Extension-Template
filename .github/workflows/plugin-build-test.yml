@@ -33,13 +33,13 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew && chmod +x *.sh
 
-      # Build APK (Debug)
+      # Build  (Debug)
       - name: Compile Debug
         run: sh compileDebug.sh
         
-      # Upload APK artifacts
+      # Upload plugin artifacts
       - name: Upload ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: apk-build
+          name: plugin-build
           path: output/*.zip
