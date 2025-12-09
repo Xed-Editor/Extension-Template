@@ -22,6 +22,7 @@ Before building, update the following in `manifest.json`:
 
 * `name` – your plugin’s name
 * `version` – version of your plugin
+* `authors` – Developers of the plugin
 
 >[!WARNING]
 If you rename the main class or move it to another package/folder, **you must update the `mainClass` field in `manifest.json`**, or the plugin will not load.
