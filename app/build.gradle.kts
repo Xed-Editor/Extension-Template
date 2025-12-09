@@ -106,6 +106,7 @@ val outputFile = project.layout.projectDirectory.file("libs/$ASSET_NAME")
 
 
 tasks.register<DefaultTask>("downloadLatestJar") {
+    outputs.upToDateWhen { false }
     description = "Checks and downloads the latest $ASSET_NAME from GitHub."
     group = "build"
 
@@ -172,6 +173,7 @@ tasks.named("preBuild").configure {
 // --------------- generate the final zip file -----------------
 
 tasks.register<Zip>("createFinalZip") {
+    outputs.upToDateWhen { false }
     description = "Archives the generated APK files into a single ZIP file."
     group = "build"
 

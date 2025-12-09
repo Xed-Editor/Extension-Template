@@ -16,6 +16,10 @@ class Main : ExtensionAPI() {
         //the plugin will stay in memory until the app is killed by system or force stopped
     }
 
+    override fun onUninstalled(extension: Extension) {
+        //called when this extension get updated or uninstalled by user, any running tasks by your plugin should be stopped after this function call
+    }
+
     override fun onActivityCreated(
         activity: Activity,
         savedInstanceState: Bundle?
