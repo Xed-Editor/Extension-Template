@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build Android App
+    name: Plugin Compile Test
     runs-on: ubuntu-latest
 
     steps:
@@ -25,10 +25,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-
-      # Setup Android SDK
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
 
       # Make gradlew executable
       - name: Make gradlew executable
