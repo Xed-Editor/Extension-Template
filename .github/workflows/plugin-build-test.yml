@@ -1,0 +1,48 @@
+name: Plugin Compile Test
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: Build Android App
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout source code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Setup JDK
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # Setup Android SDK
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # Make gradlew executable
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew && chmod +x *.sh
+
+      # Build APK (Debug)
+      - name: Compile Debug
+        run: sh compileDebug.sh
+
+      # (Optional) Build Release APK
+      # - name: Build Release APK
+      #   run: ./gradlew assembleRelease --stacktrace
+
+      # Upload APK artifacts
+      - name: Upload ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-build
+          path: output/*.zip
