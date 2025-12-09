@@ -1,6 +1,8 @@
 name: Plugin Compile Test
 
 on:
+  schedule:
+    - cron: "0 */24 * * *"
   push:
     branches:
       - main
@@ -35,11 +37,7 @@ jobs:
       # Build APK (Debug)
       - name: Compile Debug
         run: sh compileDebug.sh
-
-      # (Optional) Build Release APK
-      # - name: Build Release APK
-      #   run: ./gradlew assembleRelease --stacktrace
-
+        
       # Upload APK artifacts
       - name: Upload ZIP
         uses: actions/upload-artifact@v4
