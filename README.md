@@ -34,7 +34,7 @@ If you rename the main class or move it to another package/folder, **you must up
 To build the extension in **debug mode**, run:
 
 ```bash
-sh compileDebug.sh
+./compileDebug
 ```
 
 (You can create your own release script later if needed.)
