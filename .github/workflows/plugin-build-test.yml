@@ -1,4 +1,4 @@
-name: Plugin Compile Test
+name: Extension Compile Test
 
 on:
   schedule:
@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   build:
-    name: Plugin Compile Test
+    name: Extension Compile Test
     runs-on: ubuntu-latest
 
     steps:
@@ -33,13 +33,13 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew && chmod +x *.sh
 
-      # Build  (Debug)
+      # Build (Debug)
       - name: Compile Debug
-        run: sh compileDebug.sh
+        run: ./compileDebug
         
-      # Upload plugin artifacts
+      # Upload extension artifacts
       - name: Upload ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: plugin-build
+          name: extension-build
           path: output/*.zip

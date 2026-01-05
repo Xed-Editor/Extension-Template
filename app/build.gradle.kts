@@ -49,7 +49,7 @@ dependencies {
     // Xed-Editor extension SDK, required to interact with the application, do NOT remove
     compileOnly(files("libs/sdk.jar"))
 
-    // If a library is used in Xed-Editor and your plugin is common. then you should use compileOnly. Otherwise, it slows down the app.
+    // If a library is used in Xed-Editor and your extension is common, then you should use compileOnly. Otherwise, it slows down the app.
     compileOnly(libs.appcompat)
     compileOnly(libs.material)
     compileOnly(libs.constraintlayout)
@@ -196,13 +196,13 @@ tasks.register<Zip>("createFinalZip") {
     val apk = apkFiles.first()
     val manifest = File(rootDir,"manifest.json")
 
-    val pluginName: String by lazy {
+    val extensionName: String by lazy {
         val text = manifest.readText()
         val json = Gson().fromJson(text, JsonObject::class.java)
         json.get("name").asString
     }
 
-    archiveFileName.set("$pluginName.zip")
+    archiveFileName.set("$extensionName.zip")
 
     from(apk) {
         into("")
