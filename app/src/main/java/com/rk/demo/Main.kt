@@ -8,7 +8,7 @@ import com.rk.extension.ExtensionAPI
 
 @Keep
 class Main : ExtensionAPI() {
-    override fun onPluginLoaded(extension: Extension) {
+    override fun onExtensionLoaded(extension: Extension) {
         // Called only once when extension is loaded
         // NOTE: Might get called even before the main activity or any UI context is available
 
