@@ -2,7 +2,6 @@ import com.google.gson.Gson
 import java.net.URL
 import com.google.gson.JsonObject
 
-
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -25,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            //if you plan to enable proguard then make sure to add @Keep on the main class otherwise xed-editor wont be able to find it
+            // If you plan to enable ProGuard, then make sure to add @Keep on the main class. Otherwise, Xed-Editor won't be able to find it.
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -34,22 +33,23 @@ android {
         }
     }
     compileOptions {
-        //should match with xed-editor
+        // Should match with Xed-Editor
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+    kotlin { jvmToolchain(21) }
     buildFeatures {
         compose = true
     }
 }
 
 
-//always try to match the versions of library to the versions used in xed-editor
+// Always try to match the versions of library to the versions used in Xed-Editor
 dependencies {
-    //very important do not remove
+    // Xed-Editor extension SDK, required to interact with the application, do NOT remove
     compileOnly(files("libs/sdk.jar"))
 
-    //if a library used in xed-editor and your plugin is common then you should use compileOnly otherwise it slow down the app
+    // If a library is used in Xed-Editor and your extension is common, then you should use compileOnly. Otherwise, it slows down the app.
     compileOnly(libs.appcompat)
     compileOnly(libs.material)
     compileOnly(libs.constraintlayout)
@@ -196,13 +196,13 @@ tasks.register<Zip>("createFinalZip") {
     val apk = apkFiles.first()
     val manifest = File(rootDir,"manifest.json")
 
-    val pluginName: String by lazy {
+    val extensionName: String by lazy {
         val text = manifest.readText()
         val json = Gson().fromJson(text, JsonObject::class.java)
         json.get("name").asString
     }
 
-    archiveFileName.set("$pluginName.zip")
+    archiveFileName.set("$extensionName.zip")
 
     from(apk) {
         into("")

@@ -1,11 +1,11 @@
 {
   "id": "com.rk.demo",
-  "name": "PluginTemplate",
+  "name": "Extension template",
   "mainClass": "com.rk.demo.Main",
   "version": "1.0.0",
-  "description": "A demo plugin template project",
+  "description": "A demo extension template project",
   "authors": ["Rohit"],
-  "minAppVersion": 73,
-  "targetAppVersion": 73,
-  "repository": "https://github.com/Xed-Editor/pluginTemplate"
+  "minAppVersion": 80,
+  "targetAppVersion": 80,
+  "repository": "https://github.com/Xed-Editor/Extension-Template"
 }

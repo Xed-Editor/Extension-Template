@@ -35,6 +35,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PluginTemplate"
+rootProject.name = "Extension-Template"
 include(":app")
  
