@@ -29,9 +29,9 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      # Make gradlew executable
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew && chmod +x *.sh
+      # Make scripts executable
+      - name: Make scripts executable
+        run: chmod +x ./gradlew && chmod +x ./compileDebug && chmod +x ./compileRelease
 
       # Build (Debug)
       - name: Compile Debug
