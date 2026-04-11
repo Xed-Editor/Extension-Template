@@ -6,7 +6,7 @@
   "version": "1.0.0",
   "description": "A demo extension template project",
   "authors": ["Rohit"],
-  "minAppVersion": 80,
-  "targetAppVersion": 80,
+  "license": "MIT"
+  "targetAppVersion": 85,
   "repository": "https://github.com/Xed-Editor/Extension-Template"
 }
