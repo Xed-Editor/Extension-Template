@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.rk.demo"
+    namespace = "com.rk.testbench"
     compileSdk = 36
 
     defaultConfig {
@@ -195,6 +195,16 @@ tasks.register<Zip>("createFinalZip") {
 
     val apk = apkFiles.first()
     val manifest = File(rootDir,"manifest.json")
+    val icon = File(rootDir,"icon.png")
+    val readme = File(rootDir,"README.md")
+
+    if (icon.exists().not()){
+        throw GradleException("No icon.png found")
+    }
+
+    if(readme.exists().not()){
+        throw GradleException("No README.md found")
+    }
 
     val extensionName: String by lazy {
         val text = manifest.readText()
@@ -209,6 +219,14 @@ tasks.register<Zip>("createFinalZip") {
     }
 
     from(manifest) {
+        into("")
+    }
+
+    from(icon){
+        into("")
+    }
+
+    from(readme){
         into("")
     }
 
