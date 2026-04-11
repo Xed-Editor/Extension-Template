@@ -198,14 +198,6 @@ tasks.register<Zip>("createFinalZip") {
     val icon = File(rootDir,"icon.png")
     val readme = File(rootDir,"README.md")
 
-    if (icon.exists().not()){
-        throw GradleException("No icon.png found")
-    }
-
-    if(readme.exists().not()){
-        throw GradleException("No README.md found")
-    }
-
     val extensionName: String by lazy {
         val text = manifest.readText()
         val json = Gson().fromJson(text, JsonObject::class.java)
@@ -222,12 +214,16 @@ tasks.register<Zip>("createFinalZip") {
         into("")
     }
 
-    from(icon){
-        into("")
+    if (icon.exists()){
+        from(icon){
+            into("")
+        }
     }
 
-    from(readme){
-        into("")
+    if(readme.exists()){
+        from(readme){
+            into("")
+        }
     }
 
     destinationDirectory.set(File(rootDir,"output"))
