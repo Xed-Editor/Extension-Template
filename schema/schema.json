@@ -13,27 +13,32 @@
   "properties": {
     "$schema": {
       "type": "string",
-      "description": "Xed-Editor theme schema URL. This property enables theme validation and auto-completion"
+      "description": "Xed-Editor extension schema URL. This property enables theme validation and auto-completion"
     },
     "id": {
       "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9]*(\\.[a-zA-Z][a-zA-Z0-9]*)+$",
       "description": "Unique identifier of the extension (package name)"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Human-readable extension name",
+      "minLength": 1
     },
     "mainClass": {
       "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9]*(\\.[a-zA-Z][a-zA-Z0-9]*)+$",
       "description": "Fully qualified entry class name"
     },
     "version": {
       "type": "string",
       "default": "1.0.0",
-      "pattern": "^(\\d+)\\.(\\d+)\\.(\\d+)([-+\\w.]*)$",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
       "description": "Semantic version string"
     },
     "description": {
-      "type": ["string", "null"]
+      "type": ["string", "null"],
+      "description": "Optional human-readable description of the extension"
     },
     "author": {
       "$ref": "#/$defs/ExtensionAuthor"
@@ -50,21 +55,27 @@
     },
     "repository": {
       "type": "string",
-      "format": "uri"
+      "format": "uri",
+      "description": "Source code repository URL"
     },
     "license": {
-      "type": ["string", "null"]
+      "type": ["string", "null"],
+      "description": "SPDX license identifier (recommended)"
     },
     "tags": {
       "type": "array",
+      "uniqueItems": true,
+      "minLength": 1,
       "items": {
         "type": "string"
       },
-      "default": []
+      "default": [],
+      "description": "Tags for categorization and discovery"
     },
     "hasSettings": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Whether this extension exposes a settings UI"
     }
   },
   "$defs": {
@@ -74,12 +85,15 @@
       "required": ["displayName"],
       "properties": {
         "displayName": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "description": "Display name of the author"
         },
         "github": {
           "type": ["string", "null"],
           "format": "uri",
-          "description": "GitHub profile URL (also used for avatar)"
+          "description": "GitHub profile URL (also used for avatar)",
+          "pattern": "^https://(www\\.)?github\\.com/[A-Za-z0-9-]+/?$"
         }
       }
     }
