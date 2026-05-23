@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Xed-Editor extension",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "mainClass",
+    "author",
+    "repository"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Xed-Editor theme schema URL. This property enables theme validation and auto-completion"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the extension (package name)"
+    },
+    "name": {
+      "type": "string"
+    },
+    "mainClass": {
+      "type": "string",
+      "description": "Fully qualified entry class name"
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0.0",
+      "pattern": "^(\\d+)\\.(\\d+)\\.(\\d+)([-+\\w.]*)$",
+      "description": "Semantic version string"
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "author": {
+      "$ref": "#/$defs/ExtensionAuthor"
+    },
+    "minAppVersion": {
+      "type": "integer",
+      "default": -1,
+      "description": "-1 means supports all versions"
+    },
+    "targetAppVersion": {
+      "type": "integer",
+      "default": -1,
+      "description": "-1 means supports all versions"
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri"
+    },
+    "license": {
+      "type": ["string", "null"]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "hasSettings": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "$defs": {
+    "ExtensionAuthor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["displayName"],
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "github": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "GitHub profile URL (also used for avatar)"
+        }
+      }
+    }
+  }
+}
