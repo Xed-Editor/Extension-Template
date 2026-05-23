@@ -1,12 +1,14 @@
 {
-  "$schema": "https://xed-editor.app/manifest-schema.json",
+  "$schema": "schema/schema.json",
   "id": "com.rk.demo",
   "name": "Extension template",
   "mainClass": "com.rk.demo.Main",
   "version": "1.0.0",
   "description": "A demo extension template project",
-  "authors": ["Rohit"],
-  "license": "MIT"
-  "targetAppVersion": 85,
+  "author": {
+    "displayName": "Unknown"
+  },
+  "minAppVersion": 87,
+  "targetAppVersion": 87,
   "repository": "https://github.com/Xed-Editor/Extension-Template"
 }
