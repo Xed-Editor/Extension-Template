@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.rk.testbench"
+    namespace = "com.rk.demo"
     compileSdk = 36
 
     defaultConfig {
@@ -86,7 +86,6 @@ dependencies {
     compileOnly(libs.pine.core)
     compileOnly(libs.androidx.lifecycle.process)
     compileOnly(libs.androidsvg.aar)
-
 }
 
 //  ---------------- below is the code for automatically updating the sdk.jar --------------------
@@ -102,7 +101,6 @@ val DOWNLOAD_URL =
 
 val timestampFile = project.layout.buildDirectory.file("sdk_updated_at.txt")
 val outputFile = project.layout.projectDirectory.file("libs/$ASSET_NAME")
-
 
 tasks.register<DefaultTask>("downloadLatestJar") {
     outputs.upToDateWhen { false }
@@ -154,20 +152,16 @@ tasks.register<DefaultTask>("downloadLatestJar") {
     }
 }
 
-
-
 tasks.register<Delete>("cleanApkOutputs") {
     description = "Clears all generated files and subdirectories from the build/outputs/apk folder."
     group = "cleanup"
-    delete( layout.buildDirectory.dir("outputs/apk"))
+    delete(layout.buildDirectory.dir("outputs/apk"))
 }
-
 
 tasks.named("preBuild").configure {
     dependsOn("cleanApkOutputs")
     dependsOn("downloadLatestJar")
 }
-
 
 // --------------- generate the final zip file -----------------
 
@@ -184,18 +178,16 @@ tasks.register<Zip>("createFinalZip") {
         .filter { it.extension == "apk" }
         .toList()
 
-    if (apkFiles.size > 1){
+    if (apkFiles.size > 1) {
         throw GradleException("multiple apk files detected, this build system canot handle multiple apk files")
     }
 
-    if (apkFiles.isEmpty()){
+    if (apkFiles.isEmpty()) {
         throw GradleException("No apk files found, run ./gradlew assembleRelease first")
     }
 
     val apk = apkFiles.first()
-    val manifest = File(rootDir,"manifest.json")
-    val icon = File(rootDir,"icon.png")
-    val readme = File(rootDir,"README.md")
+    val manifest = File(rootDir, "manifest.json")
 
     val manifestJson: JsonObject by lazy {
         val text = manifest.readText()
@@ -218,18 +210,6 @@ tasks.register<Zip>("createFinalZip") {
     from(readmeFile) { into("") }
     from(changelogFile) { into("") }
 
-    if (icon.exists()){
-        from(icon){
-            into("")
-        }
-    }
-
-    if(readme.exists()){
-        from(readme){
-            into("")
-        }
-    }
-
-    destinationDirectory.set(File(rootDir,"output"))
+    destinationDirectory.set(File(rootDir, "output"))
 }
 
