@@ -22,7 +22,7 @@ Before building, update the following in `manifest.json`:
 
 * `name` – your extension’s name
 * `version` – version of your extension
-* `authors` – Developers of the extension
+* `author` – Developer of the extension
 
 >[!WARNING]
 If you rename the main class or move it to another package/folder, **you must update the `mainClass` field in `manifest.json`**, or the extension will not load.
@@ -34,7 +34,7 @@ If you rename the main class or move it to another package/folder, **you must up
 To build the extension in **debug mode**, run:
 
 ```bash
-sh compileDebug
+./compileDebug
 ```
 
 (You can create your own release script later if needed.)
