@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.rk.demo"
+    namespace = "com.rk.testbench"
     compileSdk = 36
 
     defaultConfig {
@@ -194,6 +194,8 @@ tasks.register<Zip>("createFinalZip") {
 
     val apk = apkFiles.first()
     val manifest = File(rootDir,"manifest.json")
+    val icon = File(rootDir,"icon.png")
+    val readme = File(rootDir,"README.md")
 
     val manifestJson: JsonObject by lazy {
         val text = manifest.readText()
@@ -215,6 +217,18 @@ tasks.register<Zip>("createFinalZip") {
     from(iconFile) { into("") }
     from(readmeFile) { into("") }
     from(changelogFile) { into("") }
+
+    if (icon.exists()){
+        from(icon){
+            into("")
+        }
+    }
+
+    if(readme.exists()){
+        from(readme){
+            into("")
+        }
+    }
 
     destinationDirectory.set(File(rootDir,"output"))
 }
