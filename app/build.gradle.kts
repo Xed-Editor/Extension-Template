@@ -3,9 +3,9 @@ import java.net.URL
 import com.google.gson.JsonObject
 
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -50,40 +50,39 @@ dependencies {
     compileOnly(files("libs/sdk.jar"))
 
     // If a library is used in Xed-Editor and your extension is common, then you should use compileOnly. Otherwise, it slows down the app.
-    compileOnly(libs.appcompat)
+    compileOnly(libs.androidx.appcompat)
     compileOnly(libs.material)
-    compileOnly(libs.constraintlayout)
-    compileOnly(libs.navigation.fragment)
-    compileOnly(libs.navigation.ui)
-    compileOnly(libs.navigation.fragment.ktx)
-    compileOnly(libs.navigation.ui.ktx)
-    compileOnly(libs.activity)
-    compileOnly(libs.lifecycle.viewmodel.ktx)
-    compileOnly(libs.lifecycle.runtime.ktx)
-    compileOnly(libs.activity.compose)
-    compileOnly(platform(libs.compose.bom))
-    compileOnly(libs.ui)
-    compileOnly(libs.ui.graphics)
-    compileOnly(libs.material3)
-    compileOnly(libs.navigation.compose)
+    compileOnly(libs.androidx.constraintlayout)
+    compileOnly(libs.androidx.navigation.fragment)
+    compileOnly(libs.androidx.navigation.ui)
+    compileOnly(libs.androidx.navigation.fragment.ktx)
+    compileOnly(libs.androidx.navigation.ui.ktx)
+    compileOnly(libs.androidx.activity)
+    compileOnly(libs.androidx.lifecycle.viewmodel)
+    compileOnly(libs.androidx.lifecycle.runtime)
+    compileOnly(libs.androidx.activity.compose)
+    compileOnly(platform(libs.androidx.compose.bom))
+    compileOnly(libs.androidx.compose.ui)
+    compileOnly(libs.androidx.compose.ui.graphics)
+    compileOnly(libs.androidx.compose.material3)
+    compileOnly(libs.androidx.navigation.compose)
     compileOnly(libs.utilcode)
     compileOnly(libs.coil.compose)
     compileOnly(libs.gson)
     compileOnly(libs.commons.net)
     compileOnly(libs.okhttp)
-    compileOnly(libs.material.motion.compose.core)
+    compileOnly(libs.material.motion.compose)
     compileOnly(libs.nanohttpd)
     compileOnly(libs.photoview)
     compileOnly(libs.glide)
-    compileOnly(libs.media3.ui)
-    compileOnly(libs.browser)
+    compileOnly(libs.androidx.browser)
     compileOnly(libs.quickjs.android)
     compileOnly(libs.anrwatchdog)
     compileOnly(libs.lsp4j)
     compileOnly(libs.kotlin.reflect)
     compileOnly(libs.androidx.documentfile)
     compileOnly(libs.compose.dnd)
-    compileOnly(libs.androidx.material.icons.core)
+    compileOnly(libs.androidx.compose.material.icons.core)
     compileOnly(libs.pine.core)
     compileOnly(libs.androidx.lifecycle.process)
     compileOnly(libs.androidsvg.aar)
@@ -196,21 +195,26 @@ tasks.register<Zip>("createFinalZip") {
     val apk = apkFiles.first()
     val manifest = File(rootDir,"manifest.json")
 
-    val extensionName: String by lazy {
+    val manifestJson: JsonObject by lazy {
         val text = manifest.readText()
-        val json = Gson().fromJson(text, JsonObject::class.java)
-        json.get("name").asString
+        Gson().fromJson(text, JsonObject::class.java)
     }
+
+    val extensionName: String by lazy {
+        manifestJson.get("name").asString
+    }
+
+    val iconFile = File(rootDir, "icon.png")
+    val readmeFile = File(rootDir, "README.md")
+    val changelogFile = File(rootDir, "CHANGELOG.md")
 
     archiveFileName.set("$extensionName.zip")
 
-    from(apk) {
-        into("")
-    }
-
-    from(manifest) {
-        into("")
-    }
+    from(apk) { into("") }
+    from(manifest) { into("") }
+    from(iconFile) { into("") }
+    from(readmeFile) { into("") }
+    from(changelogFile) { into("") }
 
     destinationDirectory.set(File(rootDir,"output"))
 }
