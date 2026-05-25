@@ -3,9 +3,12 @@
 This repository is a starting point for building extensions for **Xed-Editor (Karbon)**.
 It includes a ready-to-use template, build scripts, and a simple folder structure so you can focus on writing your extension instead of setting up the environment.
 
+> [!TIP]
+> See the [documentation](https://xed-editor.github.io/Xed-Docs/docs/extensions) page for more details about creating and managing extensions for Xed-Editor.
+
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the Template
 
@@ -50,13 +53,5 @@ output/YourExtensionName.zip
 ```
 
 This ZIP file is what you load into **Xed-Editor** as a extension.
-
----
-
-## 📖 Documentation
-
-For more detailed information about creating and managing extensions for Xed-Editor, see the official documentation:
-
-[Xed-Editor Extension Docs](https://xed-editor.github.io/Xed-Docs/docs/extensions/)
 
 This includes guides, API references, examples, and best practices for developing your extensions.
