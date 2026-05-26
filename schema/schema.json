@@ -91,9 +91,8 @@
         },
         "github": {
           "type": ["string", "null"],
-          "format": "uri",
-          "description": "GitHub profile URL (also used for avatar)",
-          "pattern": "^https://(www\\.)?github\\.com/[A-Za-z0-9-]+/?$"
+          "description": "GitHub username (not URL, just the profile name)",
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$"
         }
       }
     }
