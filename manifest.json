@@ -9,6 +9,6 @@
     "displayName": "Unknown"
   },
   "minAppVersion": 87,
-  "targetAppVersion": 87,
+  "maxAppVersion": 87,
   "repository": "https://github.com/Xed-Editor/Extension-Template"
 }
