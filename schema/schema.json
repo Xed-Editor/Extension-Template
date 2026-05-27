@@ -38,20 +38,21 @@
     },
     "description": {
       "type": ["string", "null"],
+      "default": null,
       "description": "Optional human-readable description of the extension"
     },
     "author": {
       "$ref": "#/$defs/ExtensionAuthor"
     },
     "minAppVersion": {
-      "type": "integer",
-      "default": -1,
-      "description": "-1 means supports all versions"
+      "type": ["integer", "null"],
+      "default": null,
+      "description": "Minimum Xed-Editor version code supported. null means no minimum restriction"
     },
-    "targetAppVersion": {
-      "type": "integer",
-      "default": -1,
-      "description": "-1 means supports all versions"
+    "maxAppVersion": {
+      "type": ["integer", "null"],
+      "default": null,
+      "description": "Maximum Xed-Editor version code supported. null means no maximum restriction"
     },
     "repository": {
       "type": "string",
@@ -60,12 +61,13 @@
     },
     "license": {
       "type": ["string", "null"],
+      "default": null,
       "description": "SPDX license identifier (recommended)"
     },
     "tags": {
       "type": "array",
       "uniqueItems": true,
-      "minLength": 1,
+      "minItems": 0,
       "items": {
         "type": "string"
       },
@@ -91,6 +93,7 @@
         },
         "github": {
           "type": ["string", "null"],
+          "default": null,
           "description": "GitHub username (not URL, just the profile name)",
           "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$"
         }
