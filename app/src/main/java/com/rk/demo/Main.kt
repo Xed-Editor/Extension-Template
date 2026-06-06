@@ -22,6 +22,10 @@ class Main(context: ExtensionContext) : ExtensionAPI(context) {
         // For more information, view the official documentation: https://xed-editor.github.io/Xed-Docs/docs/extensions/
     }
 
+    override fun onUpdated() {
+        // Called when this extension gets updated by user
+    }
+
     override fun onUninstalled() {
         // Called when this extension gets updated or uninstalled by user, any running tasks by your extension should be stopped after this function call
     }
