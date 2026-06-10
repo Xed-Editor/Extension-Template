@@ -15,9 +15,7 @@ android {
     defaultConfig {
         applicationId = "com.rk.demo"
         minSdk = 26
-
-        //noinspection ExpiredTargetSdkVersion
-        targetSdk = 28
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
     }
