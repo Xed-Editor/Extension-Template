@@ -22,6 +22,10 @@ class Main(context: ExtensionContext) : ExtensionAPI(context) {
         // For more information, view the official documentation: https://xed-editor.github.io/Xed-Docs/docs/extensions/
     }
 
+    override fun onInstalled() {
+        // Called when this extension gets initially installed
+    }
+
     override fun onUpdated() {
         // Called when this extension gets updated by user
     }
