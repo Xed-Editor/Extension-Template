@@ -23,7 +23,8 @@ cd Extension-Template
 
 Before building, update the following in `manifest.json`:
 
-* `name` – your extension’s name
+* `name` – your extension's name
+* `id` – unique identifier of your extension
 * `version` – version of your extension
 * `author` – Developer of the extension
 
