@@ -8,7 +8,7 @@
   "author": {
     "displayName": "Unknown"
   },
-  "minAppVersion": 87,
-  "maxAppVersion": 87,
+  "minAppVersion": 95,
+  "maxAppVersion": 95,
   "repository": "https://github.com/Xed-Editor/Extension-Template"
 }
