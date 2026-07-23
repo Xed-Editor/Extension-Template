@@ -84,7 +84,7 @@ dependencies {
     compileOnly(libs.androidsvg.aar)
 }
 
-//  ---------------- below is the code for automatically updating the sdk.jar --------------------
+//  ---------------- Below is the code for building the extension --------------------
 
 val GITHUB_OWNER = "Xed-Editor"
 val GITHUB_REPO = "Xed-Editor"
@@ -150,7 +150,7 @@ tasks.register<DefaultTask>("downloadLatestJar") {
 }
 
 tasks.register<Delete>("cleanApkOutputs") {
-    description = "Clears all generated files and subdirectories from the build/outputs/apk folder."
+    description = "Clears all generated files and subdirectories from the build/outputs/APK folder."
     group = "cleanup"
     delete(layout.buildDirectory.dir("outputs/apk"))
 }
@@ -160,70 +160,85 @@ tasks.named("preBuild").configure {
     dependsOn("downloadLatestJar")
 }
 
-// --------------- generate the final zip file -----------------
+// Shared config for the extension zip, parameterized by variant so debug and release
+// each get their own task that also cleans the "output" folder and pulls in the right APK.
+fun registerPackageTask(taskName: String, assembleTaskName: String) {
+    tasks.register<Zip>(taskName) {
+        outputs.upToDateWhen { false }
+        description = "Assembles ($assembleTaskName) and archives the extension into a single ZIP file."
+        group = "build"
 
-tasks.register<Zip>("packageExtension") {
-    outputs.upToDateWhen { false }
-    description = "Archives the generated APK files into a single ZIP file."
-    group = "build"
+        // Ensures a single gradlew invocation builds the APK first, then packages it.
+        dependsOn(assembleTaskName)
 
-    val apkFiles = layout.buildDirectory
-        .dir("outputs/apk")
-        .get()
-        .asFile
-        .walk()
-        .filter { it.extension == "apk" }
-        .toList()
+        val apkDir = layout.buildDirectory.dir("outputs/apk")
 
-    if (apkFiles.size > 1) {
-        throw GradleException("multiple apk files detected, this build system canot handle multiple apk files")
+        doFirst {
+            val outputDir = File(rootDir, "output")
+            if (outputDir.exists()) {
+                outputDir.deleteRecursively()
+            }
+
+            outputDir.mkdirs()
+
+            val apkFiles = apkDir.get().asFile.walk().filter { it.extension == "apk" }.toList()
+            if (apkFiles.size > 1) {
+                throw GradleException("Multiple APK files detected. This build system cannot handle multiple APK files")
+            }
+            if (apkFiles.isEmpty()) {
+                throw GradleException("No APK files found")
+            }
+        }
+
+        val manifest = File(rootDir, "manifest.json")
+
+        if (!manifest.exists()) {
+            throw GradleException("No manifest.json file not found")
+        }
+
+        val manifestJson: JsonObject by lazy {
+            val text = manifest.readText()
+            Gson().fromJson(text, JsonObject::class.java)
+        }
+
+        val extensionName: String by lazy {
+            manifestJson.get("name").asString
+        }
+
+        val iconFile = File(rootDir, "icon.png")
+        val readmeFile = File(rootDir, "README.md")
+        val changelogFile = File(rootDir, "CHANGELOG.md")
+        val filesDir = File(rootDir, "files")
+
+        if (!iconFile.exists()) {
+            logger.warn("WARNING: No icon.png file found. It is recommended to include an icon so your extension has a recognizable visual identity.")
+        }
+
+        if (!readmeFile.exists()) {
+            logger.warn("WARNING: No README.md file found. It is recommended to include one to document your extension, its features, and usage instructions.")
+        }
+
+        if (!changelogFile.exists()) {
+            logger.warn("WARNING: No CHANGELOG.md file found. It is recommended to include one to help users track changes between releases.")
+        }
+
+        archiveFileName.set("$extensionName.zip")
+
+        from(apkDir) {
+            include("**/*.apk")
+            into("")
+            eachFile { path = name }
+        }
+        includeEmptyDirs = false
+        from(manifest) { into("") }
+        from(iconFile) { into("") }
+        from(readmeFile) { into("") }
+        from(changelogFile) { into("") }
+        from(filesDir) { into("files") }
+
+        destinationDirectory.set(File(rootDir, "output"))
     }
-
-    if (apkFiles.isEmpty()) {
-        throw GradleException("No apk files found, run ./gradlew assembleRelease first")
-    }
-
-    val apk = apkFiles.first()
-    val manifest = File(rootDir, "manifest.json")
-
-    if (!manifest.exists()) {
-        throw GradleException("manifest.json not found")
-    }
-
-    val manifestJson: JsonObject by lazy {
-        val text = manifest.readText()
-        Gson().fromJson(text, JsonObject::class.java)
-    }
-
-    val extensionName: String by lazy {
-        manifestJson.get("name").asString
-    }
-
-    val iconFile = File(rootDir, "icon.png")
-    val readmeFile = File(rootDir, "README.md")
-    val changelogFile = File(rootDir, "CHANGELOG.md")
-    val filesDir = File(rootDir, "files")
-
-    if (!iconFile.exists()) {
-        logger.warn("WARNING: No icon.png file found. It is recommended to include an icon so your extension has a recognizable visual identity.")
-    }
-
-    if (!readmeFile.exists()) {
-        logger.warn("WARNING: No README.md file found. It is recommended to include one to document your extension, its features, and usage instructions.")
-    }
-
-    if (!changelogFile.exists()) {
-        logger.warn("WARNING: No CHANGELOG.md file found. It is recommended to include one to help users track changes between releases.")
-    }
-
-    archiveFileName.set("$extensionName.zip")
-
-    from(apk) { into("") }
-    from(manifest) { into("") }
-    from(iconFile) { into("") }
-    from(readmeFile) { into("") }
-    from(changelogFile) { into("") }
-    from(filesDir) { into("files") }
-
-    destinationDirectory.set(File(rootDir, "output"))
 }
+
+registerPackageTask("buildExtensionRelease", "assembleRelease")
+registerPackageTask("buildExtensionDebug", "assembleDebug")
