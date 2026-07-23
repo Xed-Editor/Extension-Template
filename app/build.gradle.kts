@@ -1,10 +1,9 @@
 import com.google.gson.Gson
-import java.net.URL
 import com.google.gson.JsonObject
+import java.net.URI
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -35,12 +34,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlin { jvmToolchain(21) }
     buildFeatures {
         compose = true
     }
 }
 
+kotlin { jvmToolchain(21) }
 
 // Always try to match the versions of library to the versions used in Xed-Editor
 dependencies {
@@ -74,7 +73,6 @@ dependencies {
     compileOnly(libs.photoview)
     compileOnly(libs.glide)
     compileOnly(libs.androidx.browser)
-    compileOnly(libs.quickjs.android)
     compileOnly(libs.anrwatchdog)
     compileOnly(libs.lsp4j)
     compileOnly(libs.kotlin.reflect)
@@ -114,9 +112,10 @@ tasks.register<DefaultTask>("downloadLatestJar") {
 
         val remoteUpdatedAt: String
         try {
-            val json = URL(API_URL).readText()
-            val releaseMap = Gson().fromJson(json, Map::class.java) as Map<String, Any>
-            remoteUpdatedAt = releaseMap["updated_at"] as String
+            val json = URI.create(API_URL).toURL().readText()
+            val release = Gson().fromJson(json, JsonObject::class.java)
+            remoteUpdatedAt = release.get("updated_at")?.asString
+                ?: throw GradleException("GitHub API response does not contain 'updated_at'.")
         } catch (e: Exception) {
             logger.error("Failed to fetch GitHub API at $API_URL", e)
             throw GradleException("Could not check latest release timestamp.", e)
@@ -136,7 +135,7 @@ tasks.register<DefaultTask>("downloadLatestJar") {
         println("Release updated ($storedUpdatedAt -> $remoteUpdatedAt). Downloading new JAR...")
 
         try {
-            URL(DOWNLOAD_URL).openStream().use { inputStream ->
+            URI.create(DOWNLOAD_URL).toURL().openStream().use { inputStream ->
                 outputFile.asFile.outputStream().use { outputStream ->
                     inputStream.copyTo(outputStream)
                 }
@@ -163,7 +162,7 @@ tasks.named("preBuild").configure {
 
 // --------------- generate the final zip file -----------------
 
-tasks.register<Zip>("createFinalZip") {
+tasks.register<Zip>("packageExtension") {
     outputs.upToDateWhen { false }
     description = "Archives the generated APK files into a single ZIP file."
     group = "build"
@@ -187,6 +186,10 @@ tasks.register<Zip>("createFinalZip") {
     val apk = apkFiles.first()
     val manifest = File(rootDir, "manifest.json")
 
+    if (!manifest.exists()) {
+        throw GradleException("manifest.json not found")
+    }
+
     val manifestJson: JsonObject by lazy {
         val text = manifest.readText()
         Gson().fromJson(text, JsonObject::class.java)
@@ -199,6 +202,19 @@ tasks.register<Zip>("createFinalZip") {
     val iconFile = File(rootDir, "icon.png")
     val readmeFile = File(rootDir, "README.md")
     val changelogFile = File(rootDir, "CHANGELOG.md")
+    val filesDir = File(rootDir, "files")
+
+    if (!iconFile.exists()) {
+        logger.warn("WARNING: No icon.png file found. It is recommended to include an icon so your extension has a recognizable visual identity.")
+    }
+
+    if (!readmeFile.exists()) {
+        logger.warn("WARNING: No README.md file found. It is recommended to include one to document your extension, its features, and usage instructions.")
+    }
+
+    if (!changelogFile.exists()) {
+        logger.warn("WARNING: No CHANGELOG.md file found. It is recommended to include one to help users track changes between releases.")
+    }
 
     archiveFileName.set("$extensionName.zip")
 
@@ -207,7 +223,7 @@ tasks.register<Zip>("createFinalZip") {
     from(iconFile) { into("") }
     from(readmeFile) { into("") }
     from(changelogFile) { into("") }
+    from(filesDir) { into("files") }
 
     destinationDirectory.set(File(rootDir, "output"))
 }
-
