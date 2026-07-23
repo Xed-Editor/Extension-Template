@@ -24,16 +24,4 @@ class Main(context: ExtensionContext) : ExtensionAPI(context) {
         // Any running tasks by your extension should be stopped after this function call
         // NOTE: Make sure to also unregister all commands, language servers, etc.
     }
-
-    override fun onInstalled() {
-        // Called when this extension gets initially installed by user
-    }
-
-    override fun onUpdated() {
-        // Called when this extension gets updated by user
-    }
-
-    override fun onUninstalled() {
-        // Called when this extension gets uninstalled by user
-    }
 }
