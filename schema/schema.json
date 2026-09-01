@@ -3,13 +3,7 @@
   "title": "Xed-Editor extension",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "name",
-    "mainClass",
-    "author",
-    "repository"
-  ],
+  "required": ["id", "name", "mainClass", "author", "repository"],
   "properties": {
     "$schema": {
       "type": "string",
@@ -78,6 +72,11 @@
       "type": "boolean",
       "default": false,
       "description": "Whether this extension exposes a settings UI"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["extension", "theme", "icon_pack"],
+      "description": "Package type (used in unified .xed format)"
     }
   },
   "$defs": {

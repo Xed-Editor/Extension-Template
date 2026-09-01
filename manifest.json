@@ -2,6 +2,7 @@
   "$schema": "schema/schema.json",
   "id": "com.rk.demo",
   "name": "Extension template",
+  "type": "extension",
   "mainClass": "com.rk.demo.Main",
   "version": "1.0.0",
   "description": "A demo extension template project",
