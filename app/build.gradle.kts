@@ -222,7 +222,7 @@ fun registerPackageTask(taskName: String, assembleTaskName: String) {
             logger.warn("WARNING: No CHANGELOG.md file found. It is recommended to include one to help users track changes between releases.")
         }
 
-        archiveFileName.set("$extensionName.zip")
+        archiveFileName.set("$extensionName.xed")
 
         from(apkDir) {
             include("**/*.apk")

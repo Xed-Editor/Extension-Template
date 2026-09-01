@@ -3,4 +3,4 @@ set -e
 
 rm -rf output
 
-./gradlew buildExtensionDebug
+./gradlew buildExtensionRelease
