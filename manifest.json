@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Xed-Editor/Xed-Schemas/main/extension.json",
-  "id": "com.rk.demo",
-  "mainClass": "com.rk.demo.Main",
+  "id": "com.extension.template",
+  "mainClass": "com.extension.template.Main",
   "name": "Extension template",
   "type": "extension",
   "version": "1.0.0",

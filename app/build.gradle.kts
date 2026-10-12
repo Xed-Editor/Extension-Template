@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rk.demo"
+    namespace = "com.extension.template"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.rk.demo"
+        applicationId = "com.extension.template"
         minSdk = 26
         targetSdk = 37
         versionCode = 1

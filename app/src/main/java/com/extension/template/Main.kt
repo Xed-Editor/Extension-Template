@@ -1,4 +1,4 @@
-package com.rk.demo
+package com.extension.template
 
 import androidx.annotation.Keep
 import com.rk.extension.ExtensionAPI
